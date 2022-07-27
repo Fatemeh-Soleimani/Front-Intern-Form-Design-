@@ -1,6 +1,5 @@
 import "antd/dist/antd.css";
 import './App.css';
-import DateTime from "./components/Date";
 import MyForm from "./components/myform";
 
 // import "./components/myForm";
