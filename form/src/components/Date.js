@@ -1,7 +1,6 @@
-import React from "react";
 import { View, Text } from 'react';
 
-const Date_Time = (props) => {
+const Date_Time = () => {
 	const date = new Date();
 
 	const n = date.toDateString();
