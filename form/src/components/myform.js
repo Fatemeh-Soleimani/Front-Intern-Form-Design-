@@ -2,7 +2,9 @@ import "./myform.css";
 import { Form, Input, Button, Row, Col, Switch } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import FormItem from "antd/lib/form/FormItem";
+import DateTime from "./Date";
 function MyForm() {
+
 	return <div><Form name='basic form' layout="vertical" size="middle">
 		<h1 class="title">General Setting</h1>
 		<Row gutter={[64, 40]}>

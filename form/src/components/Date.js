@@ -17,5 +17,5 @@ const DateTime = () => {
 			<Text>{time}</Text>
 		</View>
 	);
-};
+}
 export default DateTime;
