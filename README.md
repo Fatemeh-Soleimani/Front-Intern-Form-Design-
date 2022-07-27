@@ -1,2 +1,2 @@
 # Front-Intern-Form-Design-
-Front Intern project (simple UI design of Form)
+Front Intern project (UI design of Form)
