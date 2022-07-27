@@ -1,6 +1,6 @@
 import { View, Text } from 'react';
 
-const Date_Time = () => {
+const DateTime = () => {
 	const date = new Date();
 
 	const n = date.toDateString();
@@ -18,4 +18,4 @@ const Date_Time = () => {
 		</View>
 	);
 };
-export default Date_Time;
+export default DateTime;
