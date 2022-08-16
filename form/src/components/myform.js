@@ -52,7 +52,7 @@ function MyForm() {
 			<Col span={12} >
 				<div>
 					<FormItem label="Created" name="create">
-						<p class="lastm"><Date /></p>
+						<p class="lastm">Saturday, October 15, 2019,18:45:23</p>
 					</FormItem>
 				</div>
 			</Col>
@@ -60,7 +60,7 @@ function MyForm() {
 			<Col span={12} >
 				<div>
 					<FormItem label="Last modified" name="create">
-						<p className="lastm"><Date /></p>
+						<p className="lastm">Saturday, October 15, 2019,18:45:23</p>
 					</FormItem>
 				</div>
 			</Col>
