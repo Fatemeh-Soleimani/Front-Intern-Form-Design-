@@ -1,4 +1,4 @@
-import React, { setState } from 'react';
+import React, { setState, useEffect } from 'react';
 import "./myform.css";
 import { Form, Input, Button, Row, Col, Switch } from "antd";
 import TextArea from "antd/lib/input/TextArea";
@@ -10,30 +10,24 @@ import { OmitProps } from "antd/lib/transfer/ListBody";
 import { getrequest, postrequest, update } from "./api.js";
 
 function MyForm() {
-	 let values=[];
-	//let values = [{"_id":"1000","name":"test","desc":"test description","priority":100,"author":"test","created":"","lastModified":"","state":true}];
-	getrequest().then((listOfValue) => {
-		console.log(listOfValue);
-		values=JSON.parse(JSON.stringify(listOfValue));
-		//this.setState({ values: listOfValue.result })
-		//values={...listOfValue.result};
+	let [values,setvalues]=useState([]);
+	
+	useEffect(()=>{
+		getrequest().then((listOfValue) => {
+			console.log(listOfValue);
+			values=JSON.parse(JSON.stringify(listOfValue));
+			setvalues(listOfValue.result);
+	},[]);
 		
-	});
+		});
+		console.log(values);
+	
+	
 	//console.log(this.values);
 
-	console.log(values);
+	
 	const handleFormSubmit = (input) => {
-		//let Date=new Date().toLocaleString();
-		if (input.state === undefined) {
-			input.state = true;
-		}
-		if (input.description === undefined) {
-			input.description = "";
-		}
-		//input.lastmodified=Date;
-		input.created = values[0].created;
-		input.author = values[0].author;
-
+		
 		const list1 = {
 			name: input.Name,
 			desc: input.Description,
@@ -49,7 +43,7 @@ function MyForm() {
 			this.setState({ values: list1 });
 		});
 	}
-	console.log(values);
+	
 	const [name, setname] = useState('');
 	const [desc, setdesc] = useState('');
 	const [prio, setprio] = useState('');
@@ -83,7 +77,7 @@ function MyForm() {
 	return (
 		values.map((inp) => (
 		
-		<Form onSubmit={submituser} name='basic form' layout="vertical" size="middle" onFinish={(values) => this.handleFormSubmit(values)}>
+		<Form onSubmit={submituser} className='basic_form' layout="vertical" size="middle" onFinish={(values) => this.handleFormSubmit(values)}>
 			<h1 class="title">General Setting</h1>
 			<Row gutter={[64, 40]}>
 				<Col span={12} ><div>
@@ -131,7 +125,7 @@ function MyForm() {
 				<Col span={12} >
 					<div>
 						<FormItem label="Created" name="create">
-							<p class="create">Saturday, October 15, 2019,18:45:23</p>
+							<p class="create">{inp.created}</p>
 						</FormItem>
 					</div>
 				</Col>
@@ -139,7 +133,7 @@ function MyForm() {
 				<Col span={12} >
 					<div>
 						<FormItem label="Last modified" name="lastm">
-							<p className="lastm">Saturday, October 15, 2019,18:45:23</p>
+							<p className="lastm">{inp.lastModified}</p>
 						</FormItem>
 					</div>
 				</Col>

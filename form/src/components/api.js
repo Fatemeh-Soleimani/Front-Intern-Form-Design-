@@ -18,7 +18,7 @@ export async function update(list) {
 	return new Promise((resolve) => {
 		axios.patch('https://ansarcrm.iran.liara.run/MainApi/setForm', list)
 			.then(function (response) {
-
+				resolve(response.data);
 				console.log(response.data);
 			});
 	})
