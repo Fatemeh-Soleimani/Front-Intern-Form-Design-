@@ -6,7 +6,6 @@ import FormItem from "antd/lib/form/FormItem";
 import { useState} from "react";
 import axios from "axios";
 import { OmitProps } from "antd/lib/transfer/ListBody";
-// const [users, setUsers] = useState([]);
 import { getrequest, postrequest, update } from "./api.js";
 
 function MyForm() {
@@ -14,17 +13,13 @@ function MyForm() {
 	
 	useEffect(()=>{
 		getrequest().then((listOfValue) => {
-			console.log(listOfValue);
+			
 			values=JSON.parse(JSON.stringify(listOfValue));
 			setvalues(listOfValue.result);
 	},[]);
 		
 		});
-		console.log(values);
-	
-	
-	//console.log(this.values);
-
+		
 	
 	const handleFormSubmit = (input) => {
 		
@@ -42,6 +37,7 @@ function MyForm() {
 			console.log(list1)
 			this.setState({ values: list1 });
 		});
+		console.log(list1);
 	}
 	
 	const [name, setname] = useState('');
@@ -77,7 +73,7 @@ function MyForm() {
 	return (
 		values.map((inp) => (
 		
-		<Form onSubmit={submituser} className='basic_form' layout="vertical" size="middle" onFinish={(values) => this.handleFormSubmit(values)}>
+		<Form onSubmit={submituser} className='basic_form' layout="vertical" size="middle" onFinish={(values) => handleFormSubmit(values)}>
 			<h1 class="title">General Setting</h1>
 			<Row gutter={[64, 40]}>
 				<Col span={12} ><div>
