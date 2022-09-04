@@ -37,3 +37,10 @@
 	background-color:rgb(9, 104, 194) ;
 	cursor: pointer;
 }
+.error{
+	background-color: rgb(237, 74, 106);
+	color:black;
+	margin: 80px;
+	padding:50px;
+	border-radius: 7px;
+}

@@ -5,24 +5,23 @@ import TextArea from "antd/lib/input/TextArea";
 import FormItem from "antd/lib/form/FormItem";
 import { useState } from "react";
 import axios from "axios";
-import { OmitProps } from "antd/lib/transfer/ListBody";
 import { getrequest, postrequest, update } from "./api.js";
 
 function MyForm() {
 	let [values, setvalues] = useState([]);
-	const [httpError, setHttpError] = useState();
+	const [httpError, setHttpError] = useState(false);
 	useEffect(() => {
-		const response = getrequest().then((listOfValue) => {
+		 getrequest().then((listOfValue) => {
 
 			values = JSON.parse(JSON.stringify(listOfValue));
 			setvalues(listOfValue.result);
 			console.log(values)
+			if(listOfValue.result.length===0){
+				setHttpError(true);
+			}
 		})
 		
-		// .catch(error=>{
-		// 	setHttpError(error.message)
-		// });
-
+		
 	}, []);
 	
 
@@ -78,90 +77,91 @@ function MyForm() {
 	// 	postrequest(e)
 
 	// }
-// if(httpError){
-// 	return(
-// 		<section >
-//         <p>{httpError}</p>
-//       </section>
-// 	)
-// }
+	const form=values.map((inp) => (
+
+		<Form className='basic_form' layout="vertical" size="middle" onSubmit={handleFormSubmit}>
+			<h1 class="title">General Setting</h1>
+			<Row gutter={[64, 40]}>
+				<Col span={12} ><div>
+					<Form.Item label="Name" name="Name" rules={[{ required: true, message: 'Please enter your name' }]}>
+						<input name="name" className="name" onChange={(e) => handlename(e)} placeholder={inp.name}></input>
+					</Form.Item></div></Col>
+				
+					<Col span={12} ><div>
+					<Form.Item label="State" name="state">
+
+						<Switch className="sw-button"  checkedChildren="is enabled" unCheckedChildren="not enabled" defaultChecked />
+
+					</Form.Item></div></Col>
+			</Row>
+			<Row gutter={[64, 40]}>
+				<Col span={24} >
+					<div>
+						<Form.Item label="Description" >
+							<TextArea className="desc-inp" name="desc_inp" showCount maxLength={1000} onChange={(e) => handledesc(e)} value={inp.desc}>
+							</TextArea>
+						</Form.Item>
+					</div>
+				</Col>
+			</Row>
+
+
+			<Row gutter={[64, 40]}>
+				<Col span={12} >
+					<div>
+						<FormItem name="priority" label="Priority" required tooltip="This is a required field">
+							<input className="prio-inp" onChange={(e) => handleprio(e)} placeholder={inp.priority} />
+						</FormItem>
+					</div>
+				</Col>
+				<Col span={12} >
+					<div>
+						<FormItem label="Author" name="author">
+							<p class="author" >{inp.author}</p>
+
+						</FormItem>
+					</div>
+				</Col>
+			</Row>
+			<Row gutter={[64, 40]}>
+				<Col span={12} >
+					<div>
+						<FormItem label="Created" name="create">
+							<p className="create">{inp.created}</p>
+						</FormItem>
+					</div>
+				</Col>
+
+				<Col span={12} >
+					<div>
+						<FormItem label="Last modified" name="lastm">
+							<p className="lastm">{inp.lastModified}</p>
+						</FormItem>
+					</div>
+				</Col>
+			</Row>
+			<Row gutter={[64, 40]}>
+				<Col span={24} >
+					<div>
+						<Form.Item >
+							<button className="submitbutton" type="submit" >submit</button>
+						</Form.Item>
+					</div>
+				</Col>
+			</Row>
+		</Form>
+
+	))
+	
+
+
 	return (
-		values.map((inp) => (
-
-			<Form className='basic_form' layout="vertical" size="middle" onSubmit={handleFormSubmit}>
-				<h1 class="title">General Setting</h1>
-				<Row gutter={[64, 40]}>
-					<Col span={12} ><div>
-						<Form.Item label="Name" name="Name" rules={[{ required: true, message: 'Please enter your name' }]}>
-							<input name="name" className="name" onChange={(e) => handlename(e)} placeholder={inp.name}></input>
-						</Form.Item></div></Col>
-					<Col span={12} ><div>
-						<Form.Item label="State" name="state">
-
-							<Switch className="sw-button" autofocus="true" checkedChildren="is enabled" unCheckedChildren="not enabled" defaultChecked />
-
-						</Form.Item></div></Col>
-
-				</Row>
-				<Row gutter={[64, 40]}>
-					<Col span={24} >
-						<div>
-							<Form.Item label="Description" >
-								<TextArea class="desc-inp" name="desc_inp" showCount maxLength={1000} onChange={(e) => handledesc(e)} value={inp.desc}>
-								</TextArea>
-							</Form.Item>
-						</div>
-					</Col>
-				</Row>
-
-
-				<Row gutter={[64, 40]}>
-					<Col span={12} >
-						<div>
-							<FormItem name="priority" label="Priority" required tooltip="This is a required field">
-								<input class="prio-inp" onChange={(e) => handleprio(e)} placeholder={inp.priority} />
-							</FormItem>
-						</div>
-					</Col>
-					<Col span={12} >
-						<div>
-							<FormItem label="Author" name="author">
-								<p class="author" >{inp.author}</p>
-
-							</FormItem>
-						</div>
-					</Col>
-				</Row>
-				<Row gutter={[64, 40]}>
-					<Col span={12} >
-						<div>
-							<FormItem label="Created" name="create">
-								<p class="create">{inp.created}</p>
-							</FormItem>
-						</div>
-					</Col>
-
-					<Col span={12} >
-						<div>
-							<FormItem label="Last modified" name="lastm">
-								<p className="lastm">{inp.lastModified}</p>
-							</FormItem>
-						</div>
-					</Col>
-				</Row>
-				<Row gutter={[64, 40]}>
-					<Col span={24} >
-						<div>
-							<Form.Item >
-								<button class="submitbutton" type="submit" >submit</button>
-							</Form.Item>
-						</div>
-					</Col>
-				</Row>
-			</Form>
-
-		))
+		<section>
+			{!httpError && form}
+			{httpError && <p className='error'>Oops!... Some Thing Went Wrong in Loading Data from Server </p>}
+		</section>
 	)
+		 
 };
 export default MyForm;
 

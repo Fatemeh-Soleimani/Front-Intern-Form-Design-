@@ -2,7 +2,7 @@ import { resolveOnChange } from "antd/lib/input/Input";
 import axios from "axios";
 export async function getrequest() {
 	return new Promise((Resolve) => {
-		axios.get('https://ansarcrm.iran.liara.run/MainApi/getForm?id=100')
+		axios.get('https://ansarcrm.iran.liara.run/MainApi/getForm?id=1000')
 			.then(function (response) {
 				Resolve(response.data);
 			})
@@ -21,7 +21,10 @@ export async function update(list) {
 				Resolve(response.data);
 				console.log(response.data);
 			})
-			
+			.catch(function(error){
+				console.log(error.message);
+				
+			})
 	})
 }
 // export async function postrequest(e){
