@@ -1,33 +1,34 @@
 import { resolveOnChange } from "antd/lib/input/Input";
 import axios from "axios";
 export async function getrequest() {
-	return new Promise((resolve) => {
-		axios.get('https://ansarcrm.iran.liara.run/MainApi/getForm?id=1000', {
-			params: {
-				ID: 1000
-			}
-		})
+	return new Promise((Resolve) => {
+		axios.get('https://ansarcrm.iran.liara.run/MainApi/getForm?id=100')
 			.then(function (response) {
-				resolve(response.data);
-				//console.log(response.data);
+				Resolve(response.data);
 			})
+			.catch(function(error){
+				console.log(error.message);
+				
+			})
+			
 	})
 }
 
 export async function update(list) {
-	return new Promise((resolve) => {
+	return new Promise((Resolve) => {
 		axios.patch('https://ansarcrm.iran.liara.run/MainApi/setForm', list)
 			.then(function (response) {
-				resolve(response.data);
+				Resolve(response.data);
 				console.log(response.data);
-			});
+			})
+			
 	})
 }
-export async function postrequest(e){
-	//not complete............
-
-	
-	// e.preventDesfault();
-		// const userdata={Name:name , description:desc,prior:prio};
-		// await axios.post('https://ansarcrm.iran.liara.run/MainApi/setForm',JSON.stringify(userdata)).then(result=>{console.log(result.data);});
-}
+// export async function postrequest(e){
+// 	//not complete............
+//  	e.preventDesfault();
+		
+// 		await axios.post('',JSON.stringify({
+// 			user:e,
+// 		}))
+// }
